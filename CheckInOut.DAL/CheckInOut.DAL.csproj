@@ -32,7 +32,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,12 +50,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Context\CheckInOutContext.cs" />
+    <Compile Include="Mappers\ModelMapper.cs" />
+    <Compile Include="Models\Branch.cs" />
+    <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\ConfigurationEmail.cs" />
+    <Compile Include="Models\DataField.cs" />
+    <Compile Include="Models\Device.cs" />
+    <Compile Include="Models\DeviceVisitorType.cs" />
+    <Compile Include="Models\DeviceVisitorTypeDataField.cs" />
+    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\TrxVisit.cs" />
+    <Compile Include="Models\Visitor.cs" />
+    <Compile Include="Models\VisitorType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\VmDeviceVisitorType.cs" />
+    <Compile Include="ViewModels\VmDeviceVisitorTypeDataField.cs" />
+    <Compile Include="ViewModels\VmEmployee.cs" />
+    <Compile Include="ViewModels\VmSignIn.cs" />
+    <Compile Include="ViewModels\VmSignOut.cs" />
+    <Compile Include="ViewModels\VmVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
