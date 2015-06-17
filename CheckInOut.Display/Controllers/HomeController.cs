@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CheckInOut.DAL.Context;
 using CheckInOut.DAL.Mappers;
 using CheckInOut.DAL.ViewModels;
 using CheckInOut.Display.Helpers;
 
 namespace CheckInOut.Display.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
+        private readonly CheckInOutContext _context = new CheckInOutContext();
         public ActionResult Index()
         {
             var deviceVisitorTypes = _context.DeviceVisitorTypes.Where(s => s.DeviceId == SettingsManager.DeviceId && s.IsActive).ToList();

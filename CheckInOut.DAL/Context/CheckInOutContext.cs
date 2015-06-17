@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using CheckInOut.DAL.Migrations;
 using CheckInOut.DAL.Models;
 
 namespace CheckInOut.DAL.Context
@@ -8,7 +9,6 @@ namespace CheckInOut.DAL.Context
     {
         public CheckInOutContext() : base("CheckInOutContext")
         {
-            
         }
 
         public DbSet<Company> Companies { get; set; }
