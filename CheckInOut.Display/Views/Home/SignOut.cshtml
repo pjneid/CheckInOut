@@ -1,0 +1,128 @@
+﻿@model IEnumerable<CheckInOut.DAL.ViewModels.VmSignOut>
+
+@{
+    ViewBag.Title = "SignOut";
+}
+
+<div id="users">
+    <div class="row">
+        <div class="col-md-offset-2">
+            <h2 class="text-left">Sign Out</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-2">
+            @Html.Label("lblSearch", "Type at least 3 characters", new { @class = "control-label" })
+            @Html.TextBox("txtSearch", "", new { @class = "form-control search", @placeholder = "Search by Name or Code" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <ul class="list"></ul>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-offset-2 col-md-8 alert alert-danger text-center" role="alert" style="display: none">
+        Thanks for visiting us!
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-offset-2">
+        <a href="@Url.Action("Index", "Home")" class="btn btn-danger btn-lg btn-visitorType"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back</a>
+    </div>
+</div>
+
+@section scripts
+    {
+    <script type="text/javascript" language="javascript">
+
+            var count = 60;
+            var countdown = setInterval(function () {
+                if (count === 0) {
+                    clearInterval(countdown);
+                    window.location.href = "/Home/Index";
+
+                }
+                count--;
+            }, 1000);
+
+            var timeWait = 1000 * 60;
+            setTimeout(function () {
+                // back to home page after 1 minute
+                window.location.href = "/Home/Index";
+            }, timeWait);
+
+            getSignedIn();
+
+            function getSignedIn() {
+                $.ajax({
+                    url: "@Url.Action("GetSignedIn", "Home")",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    type: "POST",
+                    error: function () {
+                       // alert("No data");
+                    },
+                    success: function (data) {
+                        var strHtml = '';
+
+                        $.each(data, function (i, item) {
+                            strHtml += '<li>' +
+                                '<div class="col-md-6">' +
+                                '<h3 class="name">' + item.Name + '</h3>' +
+                                '<p class="company">' + item.Company + '</p>' +
+                                '<p class="code" style="display: none">' + item.Code + '</p>' +
+                                '</div>' +
+                                '<div class="text-right">' +
+                                '<button type="button" class="btn btn-danger btn-lg" onclick="signOut(' + item.Id + ')">Sign Out <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></button>' +
+                                '</div>' +
+                                '</li>';
+                        });
+
+                        $('#txtSearch').val('');
+                        $('#txtSearch').focus();
+                        $(".list").empty();
+                        $('.list').append($(strHtml));
+                        $('.list').hide();
+
+                        var options = {
+                            valueNames: ['name', 'code']
+                        };
+
+                        var userList = new List('users', options);
+                    }
+                });
+            }
+
+            $("#txtSearch").keyup(function () {
+                count = 60;
+                if ($("#txtSearch").val().length > 2) {
+                    $('.list').show();
+                } else {
+                    $('.list').hide();
+                }
+            });
+
+
+            function signOut(id) {
+                $.ajax({
+                    url: "@Url.Action("SignOutVisitor", "Home")",
+                    data: { visitId: id },
+                    dataType: "json",
+                    type: "POST",
+                    error: function () {
+                        alert("error");
+                    },
+                    success: function () {
+                        $(".alert").show().delay(1000).fadeOut();
+                        getSignedIn();
+                    }
+                });
+            }
+
+    </script>
+}
+

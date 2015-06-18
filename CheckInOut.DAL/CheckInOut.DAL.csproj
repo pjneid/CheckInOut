@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\CheckInOutContext.cs" />
+    <Compile Include="Helpers\Utils.cs" />
     <Compile Include="Mappers\ModelMapper.cs" />
     <Compile Include="Migrations\201506170558467_InitialCreate.cs" />
     <Compile Include="Migrations\201506170558467_InitialCreate.Designer.cs">
